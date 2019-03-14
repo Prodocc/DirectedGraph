@@ -26,7 +26,7 @@ class DirectedGraph {
             return edges;
         }
 
-        private void setName(String name) {
+        public void setName(String name) {
             this.name = name;
         }
 
@@ -55,16 +55,16 @@ class DirectedGraph {
             this.direction = direction;
         }
 
-        private void setWeight(int weight) {
+        public void setWeight(int weight) {
             this.weight = weight;
         }
 
-        int getWeight() {
+        public int getWeight() {
             return weight;
         }
 
 
-        Edge(int weight, String direction) {
+        public Edge(int weight, String direction) {
             this.weight = weight;
             this.direction = direction;
         }
@@ -79,7 +79,7 @@ class DirectedGraph {
     }
 
 
-    boolean addVertex(String name) {
+    public boolean addVertex(String name) {
         if (hasVertex(name)) {
             System.out.println("Graph already has the same Vertex");
             return false;
@@ -90,11 +90,11 @@ class DirectedGraph {
         return true;
     }
 
-    private boolean hasVertex(String name) {
+    public boolean hasVertex(String name) {
         return vertexes.containsKey(name);
     }
 
-    boolean addEdge(String name, int weight, String direction) {
+    public boolean addEdge(String name, int weight, String direction) {
         if (!hasVertex(direction)) {
             System.out.println("Graph doesn't contain vertex " + direction);
             return false;
@@ -110,7 +110,7 @@ class DirectedGraph {
     }
 
 
-    boolean removeVertex(String name) {
+    public boolean removeVertex(String name) {
         if (!hasVertex(name)) {
             System.out.println("Graph can't delete a nonexistent vertex");
             return false;
@@ -127,13 +127,13 @@ class DirectedGraph {
         return true;
     }
 
-    boolean removeEdge(String startVertex, String endVertex) {
+    public boolean removeEdge(String startVertex, String endVertex) {
         getVertex(startVertex).edges.remove(getEdge(startVertex, endVertex));
         System.out.println("Edge between Vertex " + startVertex + " and Vertex " + endVertex + " has been removed");
         return true;
     }
 
-    boolean changeName(String name, String changedName) {
+    public boolean changeName(String name, String changedName) {
         vertexes.put(changedName, vertexes.get(name));
         vertexes.remove(name);
         vertexes.get(changedName).setName(changedName);
@@ -147,7 +147,7 @@ class DirectedGraph {
         return true;
     }
 
-    int changeWeight(String startVertex, String endVertex, int weight) {
+    public int changeWeight(String startVertex, String endVertex, int weight) {
         Edge edge = null;
         for (Edge edges : getVertex(startVertex).edges) {
             if (edges.direction.equals(endVertex)) {
@@ -160,7 +160,7 @@ class DirectedGraph {
         return edge.getWeight();
     }
 
-    Vertex getVertex(String name) {
+    public Vertex getVertex(String name) {
         for (Map.Entry<String, Vertex> entry : vertexes.entrySet()) {
             if (entry.getValue().name.equals(name)) {
                 return entry.getValue();
@@ -169,7 +169,7 @@ class DirectedGraph {
         return null;
     }
 
-    private Edge getEdge(String vertexName, String direction) {
+    public Edge getEdge(String vertexName, String direction) {
         for (Map.Entry<String, Vertex> entry : vertexes.entrySet()) {
             if (entry.getValue().equals(getVertex(vertexName))) {
                 for (Edge edge : entry.getValue().edges) {
@@ -182,12 +182,12 @@ class DirectedGraph {
         return null;
     }
 
-    List<Edge> getOutGoingEdges(String vertexName) {
+    public List<Edge> getOutGoingEdges(String vertexName) {
         return getVertex(vertexName).edges;
 
     }
 
-    List<Edge> getIncomingEdges(String vertexName) {
+    public List<Edge> getIncomingEdges(String vertexName) {
         List<Edge> list = new LinkedList<>();
         for (Map.Entry<String, Vertex> entry : vertexes.entrySet()) {
             for (Edge edge : entry.getValue().edges) {
@@ -199,7 +199,7 @@ class DirectedGraph {
         return list;
     }
 
-    void showVertexMap() {
+    public void showVertexMap() {
         for (Map.Entry<String, Vertex> entry : vertexes.entrySet()) {
             System.out.print(entry.getValue().name + " -> " + getEdge(entry.getValue().name));
             System.out.println();
@@ -207,7 +207,7 @@ class DirectedGraph {
     }
 
 
-    private String getEdge(String name) {//Vertex name
+    public String getEdge(String name) {//Vertex name
         StringBuilder sb = new StringBuilder();
         Vertex vertex = getVertex(name);
         for (Edge edge : vertex.edges) {
